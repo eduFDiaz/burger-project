@@ -20,7 +20,8 @@ class BurgerBuilder extends Component {
             meat: 0
         },
         totalPrice: 4,
-        purchaseable: false
+        purchaseable: false,
+        purchasing: false
     }
 
     updatePurchaseState(ingredients) {
@@ -37,6 +38,7 @@ class BurgerBuilder extends Component {
     }
 
     addIngredientHandler = (type) => {
+        //This method adds a new ingredient and updates the total price
         const oldCount = this.state.ingredients[type];
         const updatedCount = oldCount + 1;
         const updatedIngredients = {
@@ -50,7 +52,9 @@ class BurgerBuilder extends Component {
         this.setState({ ingredients: updatedIngredients, totalPrice: newPrice });
         this.updatePurchaseState(updatedIngredients) ;
     }
+
     removeIngredientHandler = (type) => {
+        //This method removes an ingredient and updates the total price
         const oldCount = this.state.ingredients[type];
         const updatedCount = oldCount - 1;
         const updatedIngredients = {
@@ -64,6 +68,13 @@ class BurgerBuilder extends Component {
         this.setState({ ingredients: updatedIngredients, totalPrice: newPrice });
         this.updatePurchaseState(updatedIngredients) ;
     }
+
+    purchaseHandler = () => {
+        //This method updates purchasing which is used
+        //to show/hide the order summary modal
+        this.setState({ purchasing: true });
+    }
+
     render() {
         // We chech that there are actually items added to the burger
         // otherwise we'd be tring to access to a negative element 
@@ -75,7 +86,7 @@ class BurgerBuilder extends Component {
         }
         return (
             <Aux>
-                <Modal>
+                <Modal show={this.state.purchasing}>
                     <OrderSummary ingredients={this.state.ingredients}/>
                 </Modal>
                 <Burger ingredients={this.state.ingredients}/>
@@ -84,7 +95,8 @@ class BurgerBuilder extends Component {
                     ingredientRemoved={this.removeIngredientHandler}
                     disabled={disableInfo}
                     price={this.state.totalPrice}
-                    purchaseable={this.state.purchaseable}/>
+                    purchaseable={this.state.purchaseable}
+                    ordered={this.purchaseHandler}/>
             </Aux>
         );
     }
