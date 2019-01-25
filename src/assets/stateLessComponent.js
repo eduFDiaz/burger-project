@@ -1,8 +1,8 @@
 import React from 'react';
 
-const name = (props) => {
-    return();
-}
+const name = (props) => (
+    <div></div>
+)
 export default name;
 
 import React, {Component} from 'react';
