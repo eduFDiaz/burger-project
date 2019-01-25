@@ -6,7 +6,8 @@ const Burger = (props) => {
     let transformedIngredients = Object.keys(props.ingredients)
         .map(igKey => {
             return [...Array(props.ingredients[igKey])].map((_, i) => {
-                return <BurgerIngredient key={igKey + 1} type={igKey} />;
+                //When the key value repeats it causes malfunction when removing ingredients, will go back om this bug
+                return <BurgerIngredient key={igKey + Math.floor(Math.random() * 200) + 1} type={igKey} />;
             });
         })
         .reduce((arr, el) => {
