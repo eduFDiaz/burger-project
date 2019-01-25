@@ -81,6 +81,11 @@ class BurgerBuilder extends Component {
         this.setState({ purchasing: false });
     }
 
+    purchaseContinueHandler = () => {
+        //This method will redirect later to a checkout page
+        alert('You continued!');
+    }
+
     render() {
         // We chech that there are actually items added to the burger
         // otherwise we'd be tring to access to a negative element 
@@ -93,7 +98,10 @@ class BurgerBuilder extends Component {
         return (
             <Aux>
                 <Modal show={this.state.purchasing} modalClosed={this.purchaseCancelHandler}>
-                    <OrderSummary ingredients={this.state.ingredients}/>
+                    <OrderSummary 
+                    purchaseCancelledHandler={this.purchaseCancelHandler}
+                    purchaseContinuedHandler={this.purchaseContinueHandler}
+                    ingredients={this.state.ingredients}/>
                 </Modal>
                 <Burger ingredients={this.state.ingredients}/>
                 <BuildControls
